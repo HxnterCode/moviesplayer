@@ -555,6 +555,42 @@
                 `;
         }
       });
+      window.addEventListener("DOMContentLoaded", async () => {
+    const savedMovieId = getCookie("movieId");
+
+    if (savedMovieId) {
+        const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
+
+        try {
+            const detailsUrl = `https://api.themoviedb.org/3/movie/${savedMovieId}?api_key=${apiKey}`;
+            const detailsResponse = await fetch(detailsUrl);
+            const detailsData = await detailsResponse.json();
+
+            const title = detailsData.title;
+            const posterPath = detailsData.poster_path;
+            const detailsText = detailsData.overview;
+            const genres = detailsData.genres.map(genre => genre.name).join(", ");
+            const castUrl = `https://api.tmdb.org/3/movie/${savedMovieId}/credits?api_key=${apiKey}`;
+            const castResponse = await fetch(castUrl);
+            const castData = await castResponse.json();
+            const cast = castData.cast.slice(0, 5).map(actor => actor.name).join(", ");
+            const ratings = detailsData.vote_average;
+
+            document.getElementById("details").innerHTML = `
+                <h1>${title}</h1>
+                <img src="https://image.tmdb.org/t/p/w300/${posterPath}" alt="${title} Poster">
+                <p><strong>Details:</strong> ${detailsText}</p>
+                <p><strong>Genres:</strong> ${genres}</p>
+                <p><strong>Cast:</strong> ${cast}</p>
+                <p class="ratings"><strong>Ratings:</strong> <span class="star"> &#9733;</span>${ratings}/10</p>
+            `;
+
+        } catch (error) {
+            console.error("An error occurred:", error);
+        }
+    }
+});
+
     </script>
   </body>
 </html>
