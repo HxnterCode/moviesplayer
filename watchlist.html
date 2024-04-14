@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Watchlist</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap">
+    <style>
+        .navigation {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .navigation button {
+        margin-top: 10px;
+        background-color: #202020;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .navigation button:hover {
+        background-color: #0056b3;
+      }
+        body {
+            font-family: 'Young Serif', serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1f1f1f;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #272727;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .movie-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .movie-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #333;
+        }
+        .movie-item:last-child {
+            border-bottom: none;
+        }
+        .movie-item img {
+            width: 100px;
+            border-radius: 8px;
+        }
+        .movie-item-details {
+            flex: 1;
+            margin-left: 20px;
+        }
+        .movie-item-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .movie-item-overview {
+            margin-bottom: 10px;
+        }
+        .movie-item-button {
+            padding: 8px 16px;
+            background-color: #1f1f1f;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .movie-item-button:hover {
+            background-color: #0056b3;
+        }
+        .popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 9999;
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Watchlist</h1>
+    </header>
+    <div class="popup" id="popup">
+        Added to Watchlist!
+    </div>
+    <div class="navigation">
+        <button onclick="navigateToIndex()">Home</button>
+        <button onclick="navigateToLatestMovies()">Latest Movies</button>
+      </div>
+    <div class="container" id="watchlistContainer">
+        <!-- Movies will be inserted here -->
+    </div>
+    
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        function removeFromWatchlist(movieId) {
+            let watchlist = getCookie("watchlist") ? JSON.parse(getCookie("watchlist")) : [];
+            watchlist = watchlist.filter(id => id !== movieId);
+            document.cookie = `watchlist=${JSON.stringify(watchlist)}; path=/`;
+            displayWatchlist();
+        }
+
+        async function displayWatchlist() {
+            const watchlist = getCookie("watchlist") ? JSON.parse(getCookie("watchlist")) : [];
+            const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
+            const container = document.getElementById("watchlistContainer");
+            container.innerHTML = "";
+
+            for (let movieId of watchlist) {
+                const movieUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
+                try {
+                    const response = await fetch(movieUrl);
+                    const movieData = await response.json();
+
+                    const movieItem = `
+                        <div class="movie-item">
+                            <img src="https://image.tmdb.org/t/p/w300/${movieData.poster_path}" alt="${movieData.title} Poster">
+                            <div class="movie-item-details">
+                                <h2 class="movie-item-title">${movieData.title}</h2>
+                                <p class="movie-item-overview">${movieData.overview.slice(0, 150)}...</p>
+                            </div>
+                            <button class="movie-item-button" onclick="removeFromWatchlist(${movieId})">Remove</button>
+                            <button class="movie-item-button watch" onclick="watchMovie(${movieId})">Watch</button> <!-- Watch button added -->
+                        </div>
+                    `;
+
+                    container.innerHTML += movieItem;
+                } catch (error) {
+                    console.error("Error fetching movie:", error);
+                }
+            }
+        }
+        function showPopup() {
+            const popup = document.getElementById("popup");
+            popup.style.display = "block"; 
+            setTimeout(() => {
+                popup.style.display = "none"; 
+            }, 3000);
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            displayWatchlist();
+        });
+        function watchMovie(movieId) {
+        // Set movieID in cookies
+        document.cookie = `movieId=${movieId};path=/`;
+
+        // Redirect to index.html
+        window.location.href = "index.html";
+      }
+
+      function navigateToIndex() {
+        window.location.href = "index.html";
+      }
+      function navigateToLatestMovies() {
+        window.location.href = "latestMovies.html";
+      }
+    </script>
+</body>
+</html>
