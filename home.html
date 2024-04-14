@@ -1,281 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MoviesPlayer</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap"
+    />
     <style>
-        /* Common Styles */
-        .navigation {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+      /* Base Styles */
+      /* Common Styles */
+      .navigation {
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-        .navigation button {
-            margin-top: 10px;
-            background-color: #202020;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+      .navigation button {
+        margin-top: 10px;
+        background-color: #202020;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
-        .navigation button:hover {
-            background-color: #0056b3;
-        }
+      .navigation button:hover {
+        background-color: #0056b3;
+      }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Young Serif", serif;
-            background-color: #121212; /* Dark background */
-            color: #e0e0e0; /* Light text */
-        }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Young Serif", serif;
+        background-color: #121212; /* Dark background */
+        color: #e0e0e0; /* Light text */
+      }
 
-        header {
-            background-color: #1f1f1f; /* Dark header */
-            padding: 20px;
-            text-align: center;
-            color: #ffffff;
-        }
+      header {
+        background-color: #1f1f1f; /* Dark header */
+        padding: 20px;
+        text-align: center;
+        color: #ffffff;
+      }
 
+      .container {
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #272727; /* Dark container */
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Light shadow */
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
         .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #272727; /* Dark container */
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Light shadow */
+          padding: 10px;
         }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            .navigation button {
-                padding: 8px 16px;
-            }
+        .navigation button {
+          padding: 8px 16px;
         }
+      }
 
-        /* Existing Styles */
-        .mainh1 {
-            color: #ffffff; /* White text */
-        }
+      /* Existing Styles */
+      .mainh1 {
+        color: #ffffff; /* White text */
+      }
 
+      #searchBar {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #1f1f1f; /* Dark border */
+        border-radius: 4px;
+        font-size: 16px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        background-color: #333; /* Darker background for input */
+        color: #e0e0e0; /* Light text for input */
+      }
+
+      #button {
+        width: 100%;
+        padding: 10px;
+        background-color: #1f1f1f; /* Dark button */
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      #button:hover {
+        background-color: #0056b3;
+      }
+
+      #video {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        margin-top: 20px;
+        border-radius: 8px;
+      }
+
+      #video iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 8px;
+      }
+
+      #details {
+        margin-top: 20px;
+      }
+
+      #details img {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      #details p {
+        margin-bottom: 10px;
+      }
+
+      #details strong {
+        color: #ffffff;
+      }
+
+      #details .ratings {
+        display: flex;
+        align-items: center;
+      }
+
+      #details .star {
+        color: #ffac33;
+        margin-right: 5px;
+      }
+
+      #details button {
+        width: 100%;
+        padding: 10px;
+        background-color: #1f1f1f; /* Dark button */
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      .movie-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #333;
+      }
+
+      .movie-item:last-child {
+        border-bottom: none;
+      }
+
+      .movie-item img {
+        width: 100px;
+        border-radius: 8px;
+      }
+
+      .movie-item-details {
+        flex: 1;
+        margin-left: 20px;
+      }
+
+      .movie-item-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+
+      .movie-item-overview {
+        margin-bottom: 10px;
+      }
+
+      .movie-item-release {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+      }
+
+      .movie-item-button {
+        padding: 8px 16px;
+        background-color: #1f1f1f; /* Dark button */
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .movie-item-button:hover {
+        background-color: #0056b3;
+      }
+
+      .pagination {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .pagination-button {
+        padding: 8px 16px;
+        background-color: #1f1f1f; /* Dark button */
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .pagination-button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        /* Search Bar */
         #searchBar {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #1f1f1f; /* Dark border */
-            border-radius: 4px;
-            font-size: 16px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-            background-color: #333; /* Darker background for input */
-            color: #e0e0e0; /* Light text for input */
+          padding: 8px;
+          font-size: 14px;
+          width: 80%;
+          max-width: 300px;
+          margin: 10px auto;
         }
 
+        /* Button */
         #button {
-            width: 100%;
-            padding: 10px;
-            background-color: #1f1f1f; /* Dark button */
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+          padding: 10px;
+          font-size: 14px;
+          width: 80%;
+          max-width: 200px;
+          margin: 10px auto;
         }
 
-        #button:hover {
-            background-color: #0056b3;
-        }
-
+        /* Video */
         #video {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            margin-top: 20px;
-            border-radius: 8px;
+          position: relative;
+          padding-bottom: 56.25%;
+          height: 0;
+          margin-top: 20px;
+          border-radius: 8px;
         }
 
         #video iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 8px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border: solid;
+          border-radius: 8px;
         }
 
-        #details {
-            margin-top: 20px;
-        }
-
-        #details img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        #details p {
-            margin-bottom: 10px;
-        }
-
-        #details strong {
-            color: #ffffff;
-        }
-
-        #details .ratings {
-            display: flex;
-            align-items: center;
-        }
-
-        #details .star {
-            color: #ffac33;
-            margin-right: 5px;
-        }
-
-        #details button {
-            width: 100%;
-            padding: 10px;
-            background-color: #1f1f1f; /* Dark button */
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-
+        /* Movie Item */
         .movie-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #333;
-        }
-
-        .movie-item:last-child {
-            border-bottom: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 15px;
+          margin-bottom: 20px;
+          border: 1px solid #333;
+          border-radius: 8px;
         }
 
         .movie-item img {
-            width: 100px;
-            border-radius: 8px;
+          width: 80%;
+          max-width: 200px;
+          border-radius: 8px;
+          margin-bottom: 15px;
         }
 
         .movie-item-details {
-            flex: 1;
-            margin-left: 20px;
+          text-align: center;
+          font-size: 14px;
         }
 
         .movie-item-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+          font-size: 1.2rem;
+          margin-bottom: 10px;
         }
 
         .movie-item-overview {
-            margin-bottom: 10px;
+          margin-bottom: 10px;
+          font-size: 16px;
         }
 
         .movie-item-release {
-            font-size: 0.9rem;
-            margin-bottom: 5px;
+          font-size: 0.9rem;
+          margin-bottom: 5px;
         }
 
         .movie-item-button {
-            padding: 8px 16px;
-            background-color: #1f1f1f; /* Dark button */
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+          padding: 10px 15px;
+          background-color: #1f1f1f; /* Dark button */
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          margin-top: 10px;
         }
 
         .movie-item-button:hover {
-            background-color: #0056b3;
+          background-color: #0056b3;
         }
 
-        .pagination {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
+        /* Details */
+        #details {
+          margin-top: 15px;
         }
 
-        .pagination-button {
-            padding: 8px 16px;
-            background-color: #1f1f1f; /* Dark button */
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+        #details img {
+          width: 60%;
+          max-width: 150px;
+          border-radius: 8px;
+          margin-bottom: 15px;
         }
 
-        .pagination-button:hover {
-            background-color: #0056b3;
+        #details p {
+          margin-bottom: 10px;
+          font-size: 14px;
         }
+
+        #details strong {
+          color: #ffffff;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <a href="home.html"><h1 class="mainh1">MoviesPlayer</h1></a>
+      <a href="home.html"><h1 class="mainh1">MoviesPlayer</h1></a>
     </header>
     <div class="navigation">
-        <button onclick="navigateToLatestMovies()">Latest Movies</button>
-        <button onclick="navigateToWatchlist()">Watchlist</button>
+      <button onclick="navigateToLatestMovies()">Latest Movies</button>
+      <button onclick="navigateToWatchlist()">Watchlist</button>
     </div>
 
     <div class="container" id="container">
-        <input type="text" id="searchBar" placeholder="Enter movie name" />
-        <button id="button" onclick="getMovieId()">Search</button>
-        <div id="video"></div>
-        <div id="details"></div>
-        <div class="movieListContainer" id="movieList">
-            <!-- Movies will be dynamically inserted here -->
-        </div>
-        <div class="pagination" id="pagination">
-            <!-- Pagination buttons will be dynamically inserted here -->
-        </div>
+      <input type="text" id="searchBar" placeholder="Enter movie name" />
+      <button id="button" onclick="getMovieId()">Search</button>
+      <div id="video"></div>
+      <div id="details"></div>
+      <div class="movieListContainer" id="movieList">
+        <!-- Movies will be dynamically inserted here -->
+      </div>
+      <div class="pagination" id="pagination">
+        <!-- Pagination buttons will be dynamically inserted here -->
+      </div>
     </div>
 
     <script>
-        function setCookie(name, value, days) {
-            const date = new Date();
-            date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-            const expires = "expires=" + date.toUTCString();
-            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+      function setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+      }
+
+      function getCookie(name) {
+        const cookieArr = document.cookie.split(";");
+
+        for (let i = 0; i < cookieArr.length; i++) {
+          const cookiePair = cookieArr[i].split("=");
+
+          if (name === cookiePair[0].trim()) {
+            return decodeURIComponent(cookiePair[1]);
+          }
         }
 
-        function getCookie(name) {
-            const cookieArr = document.cookie.split(";");
+        return null;
+      }
 
-            for (let i = 0; i < cookieArr.length; i++) {
-                const cookiePair = cookieArr[i].split("=");
+      function navigateToLatestMovies() {
+        window.location.href = "latestMovies.html";
+      }
 
-                if (name === cookiePair[0].trim()) {
-                    return decodeURIComponent(cookiePair[1]);
-                }
-            }
+      let currentPage = 1;
+      const totalPages = 10; // Adjust this based on the total number of pages
+      const moviesPerPage = 20; // Number of movies per page
 
-            return null;
-        }
-
-        function navigateToLatestMovies() {
-            window.location.href = "latestMovies.html";
-        }
-
-        let currentPage = 1;
-        const totalPages = 10; // Adjust this based on the total number of pages
-        const moviesPerPage = 20; // Number of movies per page
-
-        async function getMovieId() {
+      async function getMovieId() {
         const query = document.getElementById("searchBar").value;
         const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
         const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
@@ -301,11 +419,16 @@
           const title = detailsData.title;
           const posterPath = detailsData.poster_path;
           const detailsText = detailsData.overview;
-          const genres = detailsData.genres.map(genre => genre.name).join(", ");
+          const genres = detailsData.genres
+            .map((genre) => genre.name)
+            .join(", ");
           const castUrl = `https://api.tmdb.org/3/movie/${movieId}/credits?api_key=${apiKey}`;
           const castResponse = await fetch(castUrl);
           const castData = await castResponse.json();
-          const cast = castData.cast.slice(0, 5).map(actor => actor.name).join(", ");
+          const cast = castData.cast
+            .slice(0, 5)
+            .map((actor) => actor.name)
+            .join(", ");
           const ratings = detailsData.vote_average;
 
           document.getElementById("details").innerHTML = `
@@ -321,87 +444,106 @@
         }
       }
 
-        async function fetchMovies(page) {
-            const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
-            const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`;
+      async function fetchMovies(page) {
+        const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
+        const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`;
 
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
+        try {
+          const response = await fetch(apiUrl);
+          const data = await response.json();
 
-                const movies = data.results;
+          const movies = data.results;
 
-                const movieList = document.getElementById("movieList");
-                movieList.innerHTML = "";
+          const movieList = document.getElementById("movieList");
+          movieList.innerHTML = "";
 
-                movies.forEach((movie) => {
-                    const movieItem = `
+          movies.forEach((movie) => {
+            const movieItem = `
                         <div class="movie-item">
-                            <img src="https://image.tmdb.org/t/p/w300/${movie.poster_path}" alt="${movie.title} Poster">
+                            <img src="https://image.tmdb.org/t/p/w300/${
+                              movie.poster_path
+                            }" alt="${movie.title} Poster">
                             <div class="movie-item-details">
                                 <h2 class="movie-item-title">${movie.title}</h2>
-                                <p class="movie-item-overview">${movie.overview.slice(0, 150)}...</p>
-                                <p class="movie-item-release">Release Date: ${movie.release_date}</p>
+                                <p class="movie-item-overview">${movie.overview.slice(
+                                  0,
+                                  150
+                                )}...</p>
+                                <p class="movie-item-release">Release Date: ${
+                                  movie.release_date
+                                }</p>
                             </div>
-                            <button class="movie-item-button" onclick="addToWatchlist(${movie.id})">Add to Watchlist</button>
-                            <button class="movie-item-button" onclick="watchMovie(${movie.id})">Watch</button>
+                            <button class="movie-item-button" onclick="addToWatchlist(${
+                              movie.id
+                            })">Add to Watchlist</button>
+                            <button class="movie-item-button" onclick="watchMovie(${
+                              movie.id
+                            })">Watch</button>
                         </div>
                     `;
-                    movieList.innerHTML += movieItem;
-                });
+            movieList.innerHTML += movieItem;
+          });
 
-                updatePagination();
-            } catch (error) {
-                console.error("An error occurred:", error);
-            }
+          updatePagination();
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
+      }
+
+      function updatePagination() {
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+
+        const prevButton = `<button class="pagination-button" onclick="goToPage(${
+          currentPage - 1
+        })" ${currentPage === 1 ? "disabled" : ""}>Prev</button>`;
+        pagination.innerHTML += prevButton;
+
+        for (let i = 1; i <= totalPages; i++) {
+          const pageButton = `<button class="pagination-button" onclick="goToPage(${i})" ${
+            currentPage === i ? "disabled" : ""
+          }>${i}</button>`;
+          pagination.innerHTML += pageButton;
         }
 
-        function updatePagination() {
-            const pagination = document.getElementById("pagination");
-            pagination.innerHTML = "";
+        const nextButton = `<button class="pagination-button" onclick="goToPage(${
+          currentPage + 1
+        })" ${currentPage === totalPages ? "disabled" : ""}>Next</button>`;
+        pagination.innerHTML += nextButton;
+      }
 
-            const prevButton = `<button class="pagination-button" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? "disabled" : ""}>Prev</button>`;
-            pagination.innerHTML += prevButton;
-
-            for (let i = 1; i <= totalPages; i++) {
-                const pageButton = `<button class="pagination-button" onclick="goToPage(${i})" ${currentPage === i ? "disabled" : ""}>${i}</button>`;
-                pagination.innerHTML += pageButton;
-            }
-
-            const nextButton = `<button class="pagination-button" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? "disabled" : ""}>Next</button>`;
-            pagination.innerHTML += nextButton;
+      function goToPage(page) {
+        if (page >= 1 && page <= totalPages) {
+          currentPage = page;
+          fetchMovies(currentPage);
         }
+      }
 
-        function goToPage(page) {
-            if (page >= 1 && page <= totalPages) {
-                currentPage = page;
-                fetchMovies(currentPage);
-            }
+      window.addEventListener("DOMContentLoaded", () => {
+        fetchMovies(currentPage);
+      });
+
+      function watchMovie(movieId) {
+        document.cookie = `movieId=${movieId};path=/`;
+        window.location.href = "index.html";
+      }
+
+      function addToWatchlist(movieId) {
+        const watchlist = getCookie("watchlist")
+          ? JSON.parse(getCookie("watchlist"))
+          : [];
+
+        if (!watchlist.includes(movieId)) {
+          watchlist.push(movieId);
+          setCookie("watchlist", JSON.stringify(watchlist), 30);
         }
+      }
 
-        window.addEventListener("DOMContentLoaded", () => {
-            fetchMovies(currentPage);
-        });
+      function navigateToWatchlist() {
+        window.location.href = "watchlist.html";
+      }
 
-        function watchMovie(movieId) {
-            document.cookie = `movieId=${movieId};path=/`;
-            window.location.href = "index.html";
-        }
-
-        function addToWatchlist(movieId) {
-            const watchlist = getCookie("watchlist") ? JSON.parse(getCookie("watchlist")) : [];
-
-            if (!watchlist.includes(movieId)) {
-                watchlist.push(movieId);
-                setCookie("watchlist", JSON.stringify(watchlist), 30);
-            }
-        }
-
-        function navigateToWatchlist() {
-            window.location.href = "watchlist.html";
-        }
-
-        window.addEventListener("DOMContentLoaded", () => {
+      window.addEventListener("DOMContentLoaded", () => {
         const savedMovieId = getCookie("movieId");
 
         if (savedMovieId && !document.getElementById("searchBar").value) {
@@ -414,5 +556,5 @@
         }
       });
     </script>
-</body>
+  </body>
 </html>
