@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script
+      async
+      src="https://js.onclckmn.com/static/onclicka.js"
+      data-admpid="169737"
+    ></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Latest and Popular Movies</title>
@@ -8,13 +13,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap"
     />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4730873564889332"
-     crossorigin="anonymous"></script>
-    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=920745&siteid=345216" async></script>
     <style>
-      .a{
-            text-decoration: none;
-        }
+      .a {
+        text-decoration: none;
+      }
       .navigation {
         text-align: center;
         margin-bottom: 20px;
@@ -117,6 +119,7 @@
       }
 
       .pagination-button {
+        margin-bottom: 10px;
         padding: 8px 16px;
         background-color: #1f1f1f; /* Dark button */
         color: #ffffff;
@@ -241,6 +244,25 @@
         #details strong {
           color: #ffffff;
         }
+
+        .pagination {
+          margin-top: 20px;
+          display: flex;
+          justify-content: center;
+          justify-items: center;
+          gap: 2px;
+        }
+
+        .pagination-button {
+          padding: 3px 10px;
+          margin-bottom: 10px;
+          background-color: #1f1f1f; /* Dark button */
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 14px;
+        }
       }
     </style>
   </head>
@@ -348,12 +370,12 @@
         })" ${currentPage === 1 ? "disabled" : ""}>Prev</button>`;
         pagination.innerHTML += prevButton;
 
-        for (let i = 1; i <= totalPages; i++) {
+        /* for (let i = 1; i <= totalPages; i++) {
           const pageButton = `<button class="pagination-button" onclick="goToPage(${i})" ${
             currentPage === i ? "disabled" : ""
           }>${i}</button>`;
           pagination.innerHTML += pageButton;
-        }
+        } */
 
         const nextButton = `<button class="pagination-button" onclick="goToPage(${
           currentPage + 1
@@ -391,7 +413,6 @@
           setCookie("watchlist", JSON.stringify(watchlist), 30);
         }
       }
-
 
       // Check if movie is in watchlist
       function isMovieInWatchlist(movieId) {
