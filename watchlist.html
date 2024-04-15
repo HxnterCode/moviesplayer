@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <script
+      async
+      src="https://js.onclckmn.com/static/onclicka.js"
+      data-admpid="169737"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Watchlist</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4730873564889332"
-     crossorigin="anonymous"></script>
-    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=920745&siteid=345216" async></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap"
+    />
     <style>
-        .navigation {
+      .navigation {
         text-align: center;
         margin-bottom: 20px;
       }
@@ -28,153 +33,275 @@
       .navigation button:hover {
         background-color: #0056b3;
       }
-        body {
-            font-family: 'Young Serif', serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 0;
+      body {
+        font-family: "Young Serif", serif;
+        background-color: #121212;
+        color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background-color: #1f1f1f;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px 0;
+      }
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #272727;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      }
+      .movie-list {
+        list-style-type: none;
+        padding: 0;
+      }
+      .movie-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #333;
+      }
+      .movie-item:last-child {
+        border-bottom: none;
+      }
+      .movie-item img {
+        width: 100px;
+        border-radius: 8px;
+      }
+      .movie-item-details {
+        flex: 1;
+        margin-left: 20px;
+      }
+      .movie-item-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+      .movie-item-overview {
+        margin-bottom: 10px;
+      }
+      .movie-item-button {
+        padding: 8px 16px;
+        background-color: #1f1f1f;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .movie-item-button:hover {
+        background-color: #0056b3;
+      }
+      .popup {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        z-index: 9999;
+        display: none; /* Initially hidden */
+      }
+
+      @media (max-width: 768px) {
+        /* Search Bar */
+        #searchBar {
+          padding: 8px;
+          font-size: 14px;
+          width: 80%;
+          max-width: 300px;
+          margin: 10px auto;
         }
-        header {
-            background-color: #1f1f1f;
-            color: #ffffff;
-            text-align: center;
-            padding: 20px 0;
+
+        /* Button */
+        #button {
+          padding: 10px;
+          font-size: 14px;
+          width: 80%;
+          max-width: 200px;
+          margin: 10px auto;
         }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #272727;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+
+        /* Video */
+        #video {
+          position: relative;
+          padding-bottom: 56.25%;
+          height: 0;
+          margin-top: 20px;
+          border-radius: 8px;
         }
-        .movie-list {
-            list-style-type: none;
-            padding: 0;
+
+        #video iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border: solid;
+          border-radius: 8px;
         }
+
+        /* Movie Item */
         .movie-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #333;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 15px;
+          margin-bottom: 20px;
+          border: 1px solid #333;
+          border-radius: 8px;
         }
-        .movie-item:last-child {
-            border-bottom: none;
-        }
+
         .movie-item img {
-            width: 100px;
-            border-radius: 8px;
+          width: 80%;
+          max-width: 200px;
+          border-radius: 8px;
+          margin-bottom: 15px;
         }
+
         .movie-item-details {
-            flex: 1;
-            margin-left: 20px;
+          text-align: center;
+          font-size: 14px;
         }
+
         .movie-item-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+          font-size: 1.2rem;
+          margin-bottom: 10px;
         }
+
         .movie-item-overview {
-            margin-bottom: 10px;
+          margin-bottom: 10px;
+          font-size: 16px;
         }
+
+        .movie-item-release {
+          font-size: 0.9rem;
+          margin-bottom: 5px;
+        }
+
         .movie-item-button {
-            padding: 8px 16px;
-            background-color: #1f1f1f;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+          padding: 10px 15px;
+          background-color: #1f1f1f; /* Dark button */
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          margin-top: 10px;
         }
+
         .movie-item-button:hover {
-            background-color: #0056b3;
+          background-color: #0056b3;
         }
-        .popup {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            z-index: 9999;
-            display: none; /* Initially hidden */
+
+        /* Details */
+        #details {
+          margin-top: 15px;
         }
+
+        #details img {
+          width: 60%;
+          max-width: 150px;
+          border-radius: 8px;
+          margin-bottom: 15px;
+        }
+
+        #details p {
+          margin-bottom: 10px;
+          font-size: 14px;
+        }
+
+        #details strong {
+          color: #ffffff;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>My Watchlist</h1>
+      <h1>My Watchlist</h1>
     </header>
-    <div class="popup" id="popup">
-        Added to Watchlist!
-    </div>
+    <div class="popup" id="popup">Added to Watchlist!</div>
     <div class="navigation">
-        <button onclick="navigateToIndex()">Home</button>
-        <button onclick="navigateToLatestMovies()">Latest Movies</button>
-      </div>
-    <div class="container" id="watchlistContainer">
-        <!-- Movies will be inserted here -->
+      <button onclick="navigateToIndex()">Home</button>
+      <button onclick="navigateToLatestMovies()">Latest Movies</button>
     </div>
-    
+    <div class="container" id="watchlistContainer">
+      <!-- Movies will be inserted here -->
+    </div>
+
     <script>
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      }
 
-        function removeFromWatchlist(movieId) {
-            let watchlist = getCookie("watchlist") ? JSON.parse(getCookie("watchlist")) : [];
-            watchlist = watchlist.filter(id => id !== movieId);
-            document.cookie = `watchlist=${JSON.stringify(watchlist)}; path=/`;
-            displayWatchlist();
-        }
+      function removeFromWatchlist(movieId) {
+        let watchlist = getCookie("watchlist")
+          ? JSON.parse(getCookie("watchlist"))
+          : [];
+        watchlist = watchlist.filter((id) => id !== movieId);
+        document.cookie = `watchlist=${JSON.stringify(watchlist)}; path=/`;
+        displayWatchlist();
+      }
 
-        async function displayWatchlist() {
-            const watchlist = getCookie("watchlist") ? JSON.parse(getCookie("watchlist")) : [];
-            const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
-            const container = document.getElementById("watchlistContainer");
-            container.innerHTML = "";
+      async function displayWatchlist() {
+        const watchlist = getCookie("watchlist")
+          ? JSON.parse(getCookie("watchlist"))
+          : [];
+        const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
+        const container = document.getElementById("watchlistContainer");
+        container.innerHTML = "";
 
-            for (let movieId of watchlist) {
-                const movieUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
-                try {
-                    const response = await fetch(movieUrl);
-                    const movieData = await response.json();
+        for (let movieId of watchlist) {
+          const movieUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
+          try {
+            const response = await fetch(movieUrl);
+            const movieData = await response.json();
 
-                    const movieItem = `
+            const movieItem = `
                         <div class="movie-item">
-                            <img src="https://image.tmdb.org/t/p/w300/${movieData.poster_path}" alt="${movieData.title} Poster">
+                            <img src="https://image.tmdb.org/t/p/w300/${
+                              movieData.poster_path
+                            }" alt="${movieData.title} Poster">
                             <div class="movie-item-details">
-                                <h2 class="movie-item-title">${movieData.title}</h2>
-                                <p class="movie-item-overview">${movieData.overview.slice(0, 150)}...</p>
+                                <h2 class="movie-item-title">${
+                                  movieData.title
+                                }</h2>
+                                <p class="movie-item-overview">${movieData.overview.slice(
+                                  0,
+                                  150
+                                )}...</p>
                             </div>
                             <button class="movie-item-button" onclick="removeFromWatchlist(${movieId})">Remove</button>
                             <button class="movie-item-button watch" onclick="watchMovie(${movieId})">Watch</button> <!-- Watch button added -->
                         </div>
                     `;
 
-                    container.innerHTML += movieItem;
-                } catch (error) {
-                    console.error("Error fetching movie:", error);
-                }
-            }
+            container.innerHTML += movieItem;
+          } catch (error) {
+            console.error("Error fetching movie:", error);
+          }
         }
-        function showPopup() {
-            const popup = document.getElementById("popup");
-            popup.style.display = "block"; 
-            setTimeout(() => {
-                popup.style.display = "none"; 
-            }, 3000);
-        }
+      }
+      function showPopup() {
+        const popup = document.getElementById("popup");
+        popup.style.display = "block";
+        setTimeout(() => {
+          popup.style.display = "none";
+        }, 3000);
+      }
 
-        window.addEventListener("DOMContentLoaded", () => {
-            displayWatchlist();
-        });
-        function watchMovie(movieId) {
+      window.addEventListener("DOMContentLoaded", () => {
+        displayWatchlist();
+      });
+      function watchMovie(movieId) {
         // Set movieID in cookies
         document.cookie = `movieId=${movieId};path=/`;
 
@@ -189,5 +316,5 @@
         window.location.href = "latestMovies.html";
       }
     </script>
-</body>
+  </body>
 </html>
